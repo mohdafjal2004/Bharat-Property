@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice.js";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { error, loading } = useSelector((state) => state.user);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      //"...formData" because suppose we are working with email so we do not want to lose the data
-      //of username
+      //"...formData" because suppose we are working with email so we do not want to lose the data of username
+
       [e.target.id]: e.target.value,
       //[e.target.id] means which ever value is changing set that one to its value
     });
@@ -18,7 +25,7 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(signInStart());
     try {
       const res = await fetch(`/api/auth/signin`, {
         method: "POST",
@@ -31,16 +38,13 @@ const Signin = () => {
       const data = await res.json();
 
       if (data.success === false) {
-        setError(data.message);
-        setLoading(false);
+        dispatch(signInFailure(data.message));
         return;
       }
-      setLoading(false);
-      setError(null);
+      dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   };
 
