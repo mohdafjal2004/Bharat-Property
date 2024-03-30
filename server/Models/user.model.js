@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, Model } = mongoose;
+const { Schema, model } = mongoose;
 
 const userSchema = Schema(
   {
@@ -13,7 +13,7 @@ const userSchema = Schema(
       required: true,
       unique: true,
     },
-    username: {
+    password: {
       type: String,
       required: true,
     },
@@ -21,5 +21,5 @@ const userSchema = Schema(
   { timestamps: true }
 );
 
-const User = Model("User", userSchema);
+const User = model("User", userSchema);
 export default User;
