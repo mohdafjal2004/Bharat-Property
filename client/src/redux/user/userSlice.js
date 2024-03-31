@@ -21,8 +21,27 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    UpdateUserStart: (state) => {
+      state.loading = true;
+    },
+    UpdateUserSuccess: (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+      state.error = null;
+    },
+    UpdateUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { signInStart, signInSuccess, signInFailure } = userSlice.actions; //for components
+export const {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+  UpdateUserStart,
+  UpdateUserSuccess,
+  UpdateUserFailure,
+} = userSlice.actions; //for components
 export default userSlice.reducer; //for store, since it default we can use it with any name
