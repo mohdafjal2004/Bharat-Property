@@ -26,7 +26,7 @@ const signin = async (req, res, next) => {
     let user = await User.findOne({ email });
     if (!user) {
       return next(errorHandler(404, "User not found"));
-    } 
+    }
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) return next(errorHandler(404, "Wrong credentials"));
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -40,8 +40,6 @@ const signin = async (req, res, next) => {
     //Using the middleware from the index.js
   }
 };
-
-
 
 const google = async (req, res, next) => {
   const { name, email, photo } = req.body; //req.body do not have "password" because of google
@@ -85,4 +83,12 @@ const google = async (req, res, next) => {
     //Using the middleware from the index.js
   }
 };
-export { signup, signin, google };
+const signout = (req, res, next) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json("User has been logged out!");
+  } catch (error) {
+    next(error);
+  }
+};
+export { signup, signin, google, signout };
