@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-// import userRoute from "./routes/user.route.js";
+import userRoute from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 dotenv.config();
 const app = express();
 
@@ -11,8 +12,9 @@ mongoose
   .then(() => console.log("Connected to local DB"))
   .catch((error) => console.log(error));
 app.use(express.json());
+app.use(cookieParser());
 
-// app.use("/api/user", userRoute);
+app.use("/api/user", userRoute);
 app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
