@@ -33,6 +33,18 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    DeleteUserStart: (state) => {
+      state.loading = true;
+    },
+    DeleteUserSuccess: (state) => {
+      state.loading = false;
+      state.currentUser = null;
+      state.error = null;
+    },
+    DeleteUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
   },
 });
 
@@ -43,5 +55,8 @@ export const {
   UpdateUserStart,
   UpdateUserSuccess,
   UpdateUserFailure,
+  DeleteUserFailure,
+  DeleteUserStart,
+  DeleteUserSuccess,
 } = userSlice.actions; //for components
 export default userSlice.reducer; //for store, since it default we can use it with any name
