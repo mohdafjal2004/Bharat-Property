@@ -17,6 +17,13 @@ const userSchema = Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      //Image will not be uploaded when using custom registration so used "default" but for google we are sending
+      //image url
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+    },
   },
   { timestamps: true }
 );
