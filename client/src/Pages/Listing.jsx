@@ -11,13 +11,17 @@ import {
   FaMapMarkerAlt,
   FaParking,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import Contact from "../Components/Contact";
 
 const Listing = () => {
   SwiperCore.use([Navigation]);
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [contact, setContact] = useState(false);
   const [error, setError] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
     try {
       setLoading(true);
@@ -95,7 +99,7 @@ const Listing = () => {
                 </span>{" "}
                 {listing.description}
               </p>
-              <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6 mt-4">
+              <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6 my-4">
                 <li className="flex items-center gap-1 whitespace-nowrap ">
                   <FaBed className="text-lg " />
                   {listing.bedRooms > 1
@@ -117,6 +121,18 @@ const Listing = () => {
                   {listing.furnished ? "Furnished" : "Unfurnished"}
                 </li>
               </ul>
+
+              {currentUser &&
+                listing.userRef !== currentUser._id &&
+                !contact && (
+                  <button
+                    onClick={() => setContact(true)}
+                    className="bg-slate-700 text-white rounded-lg w-full uppercase hover:opacity-95 p-3"
+                  >
+                    Contact landlord
+                  </button>
+                )}
+              {contact && <Contact listing={listing} />}
             </div>
           </div>
         </>
