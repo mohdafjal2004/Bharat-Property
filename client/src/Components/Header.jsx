@@ -11,14 +11,14 @@ const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Hello");
-    const urlParams = new URLSearchParams(location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("searchTerm", searchTerm); //Here we are setting the search term on the URL from the input form
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm"); //Here we are getting the URL string from the URL search section
     //to the input form
     if (searchTermFromUrl) {
