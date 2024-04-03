@@ -2,6 +2,7 @@ import express from "express";
 import {
   createListing,
   deleteListing,
+  getAllListings,
   getListing,
   updateListing,
 } from "../controller/listing.controller.js";
@@ -11,5 +12,6 @@ router.post("/create", verifyToken, createListing);
 router.delete("/delete/:id", verifyToken, deleteListing);
 router.post("/update/:id", verifyToken, updateListing);
 router.get("/get/:id", getListing);
- //Just to allow the contact in frontend the user should be authenticated
+router.get("/get", getAllListings);
+
 export default router;

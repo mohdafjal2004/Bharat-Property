@@ -71,4 +71,5 @@ const getUser = async (req, res, next) => {
     next(error);
   }
 };
+
 export { updateUser, deleteUser, getUserListings, getUser };
