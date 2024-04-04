@@ -69,19 +69,19 @@ export const getAllListings = async (req, res, next) => {
     let startIndex = parseInt(req.query.startIndex) || 0;
     let offer = req.query.offer;
 
-    if (offer === undefined || offer === false) {
+    if (offer === undefined || offer === "false") {
       offer = { $in: [false, true] }; // if offer is not selected in query then search
       // all items with offer = false else show items only with offer = true in database (⁡⁣⁣⁢$𝗶𝗻⁡ is part of mongoDB query)
     }
 
     let furnished = req.query.furnished;
-    if (furnished === undefined || furnished === false) {
+    if (furnished === undefined || furnished === "false") {
       furnished = { $in: [false, true] }; // if offer is not selected in query then show
       // all items with furnished = false else show items only with furnished = true in database
     }
 
     let parking = req.query.parking;
-    if (parking === undefined || parking === false) {
+    if (parking === undefined || parking === "false") {
       parking = { $in: [false, true] }; // if parking is not selected in query then show
       // all items with parking = false else show items only with parking = true in database
     }
