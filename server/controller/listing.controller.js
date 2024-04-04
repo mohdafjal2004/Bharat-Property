@@ -99,7 +99,7 @@ export const getAllListings = async (req, res, next) => {
     const order = req.query.order || "desc";
 
     // ⁡⁣⁣⁢$regex⁡ : Provides regular expression capabilities for pattern matching strings in queries.
-    //$options searches all the items irrespective of whether the items are capital letter or small letter
+    //⁡⁣⁣⁢$𝗼𝗽𝘁𝗶𝗼𝗻𝘀⁡ searches all the items irrespective of whether the items are capital letter or small letter
     const listings = await Listing.find({
       name: { $regex: searchTerm, $options: "i" },
       offer,
@@ -108,7 +108,6 @@ export const getAllListings = async (req, res, next) => {
       type,
     })
       .sort({ [sort]: order })
-      .skip(startIndex)
       .limit(limit)
       .skip(startIndex);
     return res.status(200).json(listings);
