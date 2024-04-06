@@ -80,7 +80,7 @@ const Signin = () => {
       <div className="flex gap-2 mt-5">
         <p> New to Bharat Property?</p>
         <Link to="/sign-up" className="text-blue-700">
-          Sign In
+          Sign up
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}
